@@ -1,0 +1,87 @@
+.st-contenedor {
+  display: flex;
+  gap: 1em;
+  flex-wrap: wrap;
+}
+
+.st-tarjeta {
+  flex-basis: 22em;
+  max-width:  22em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  background-color: rgb(235, 236, 241);
+  padding: 0.8em 0.25em;
+  border-radius: 0.3em;
+  max-height: 100%;
+}
+
+.st-filtro {
+  display: flex;
+  gap: 1em;
+  justify-content: end;
+}
+
+.st-filtro>a{
+  display: block;
+  cursor: pointer;
+  color: #030637;
+  border-radius: 0.3em;
+  padding: 0em 0.3em;
+  font-size: 0.8em;
+  font-weight: bold;
+}
+.st-filtro>a:hover{
+  background-color: #fff;
+}
+
+.st-lista {
+  display: flex;
+  height: 35em;
+  flex-direction: column;
+  justify-content: flex-start;
+  overflow-y:auto;
+  gap: 0.4em;
+}
+
+.st-lista__pedido {
+  display: block;
+  cursor: move;
+  border-radius: 0.3em;
+}
+
+
+h2 {
+  color: #030637;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  margin-bottom: 0px;
+  opacity: 0.6;
+}
+
+
+/* no tocar estos estilos son para el funcionamiento del movimiento de las tarjetas */
+/* ----------------------------------------------------------------------------------------- */
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 10px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+              0 8px 10px 1px rgba(0, 0, 0, 0.14),
+              0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.example-box:last-child {
+  border: none;
+}
+
+.example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+/* ----------------------------------------------------------------------------------------- */
