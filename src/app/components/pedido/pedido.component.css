@@ -19,7 +19,7 @@
 .st-filtro {
   display: flex;
   gap: 1em;
-  justify-content: end;
+  justify-content: flex-end;
 }
 
 .st-filtro>a{
