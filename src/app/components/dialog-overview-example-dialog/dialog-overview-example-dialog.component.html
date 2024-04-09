@@ -1,0 +1,16 @@
+<h1 mat-dialog-title class="st-title">Seleccione el cocinero</h1>
+<div mat-dialog-content class="st-container">
+  <mat-form-field>
+    <mat-label>Seleccione cocinero</mat-label>
+    <mat-select [(ngModel)]="data.animal" >
+        <mat-option *ngFor="let item of listaCocineros" [value]="item">
+            {{item}}
+        </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions class="st-container-button">
+  <button style="background-color: rgb(223, 47, 74);" (click)="onNoClick()">Cancelar</button>
+  <button [mat-dialog-close]="data.animal" cdkFocusInitial>Guardar</button>
+</div>
+

@@ -20,9 +20,8 @@
       (cdkDropListDropped)="drop($event)">
       <app-panel-expansion class="st-lista__pedido" 
       *ngFor="let item of todo" cdkDrag 
-      content="{{item.menu}}" estado="pendiente" accion="preparar"
-      observacion="{{item.observacion}}
-      ">
+      [content]="item.menu" estado="pendiente" accion="preparar" [numeroMesa]="item.numeroMesa"
+      [numeroPedido]="item.pedido" [observacion]="item.observacion">
       </app-panel-expansion>
     </div>
   </div>
@@ -47,9 +46,11 @@
         class="st-lista"
         (cdkDropListDropped)="drop($event)">
         <app-panel-expansion class="st-lista__pedido"
-        *ngFor="let item of done" cdkDrag content="{{item.menu}}" estado="proceso" accion="Finalizar"
+        *ngFor="let item of done" cdkDrag [content]="item.menu" estado="proceso" accion="Finalizar"
+        [numeroMesa]="item.numeroMesa"
+        [numeroPedido]="item.pedido"
         chef="Sebastian Torres"
-        observacion="{{item.observacion}}">
+        [observacion]="item.observacion">
         </app-panel-expansion>
       </div>
   </div>
@@ -74,9 +75,11 @@
           class="st-lista"
           (cdkDropListDropped)="drop($event)">
           <app-panel-expansion class="st-lista__pedido"
-          *ngFor="let item of finalizado" cdkDrag content="{{item.menu}}" estado="completado"
+          *ngFor="let item of finalizado" cdkDrag [content]="item.menu" estado="completado"
           chef="Sebastian torres"
-          observacion="{{item.observacion}}">
+          [numeroMesa]="item.numeroMesa"
+          [numeroPedido]="item.pedido"
+          [observacion]="item.observacion">
           </app-panel-expansion>
       </div>
   </div>

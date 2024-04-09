@@ -1,0 +1,26 @@
+.st-title{
+    color: rgb(32, 67, 106);
+}
+
+.st-container-button {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: -20px;
+    margin-bottom: 20px;
+}
+
+button {
+    padding: 0.5em 1em;
+    background-color: rgb(43, 116, 237);
+    color: white;
+    border: none;
+    font-size: 16px;
+    border-radius: 10px;
+}
+
+.st-container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
