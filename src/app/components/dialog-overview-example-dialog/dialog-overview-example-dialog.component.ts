@@ -1,6 +1,8 @@
 import { Component, Inject } from '@angular/core';
 import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { Empleado } from 'src/app/models/Empleado';
+import { EmpleadoService } from 'src/app/services/empleado.service';
+import { PedidoService } from 'src/app/services/pedido.service';
 
 
 @Component({
@@ -10,17 +12,16 @@ import { Empleado } from 'src/app/models/Empleado';
 })
 export class DialogOverviewExampleDialog {
 
-  listaCocineros:string[]=[];
+  listaCocineros:Empleado[]=[];
 
   ngOnInit() {
-
-    // LEER DE LA BASE DE DATOS LA LISTA DE COCINEROS
-    for (let index = 1; index <= 10; index++) {
-      this.listaCocineros.push('Cocinero ' + index);
-    }
+    this._empleadoService.getChefDisponibles().subscribe((data) => {
+      this.listaCocineros = data;
+    })
   }
 
   constructor(
+    private _empleadoService:EmpleadoService,
     public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
     @Inject(MAT_DIALOG_DATA) public data: Empleado) {}
 

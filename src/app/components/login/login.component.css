@@ -1,0 +1,95 @@
+.st-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: rgb(65,65,68);
+    background: linear-gradient(90deg, rgba(65,65,68,1) 0%, rgba(186,159,159,1) 41%, rgba(211,218,219,1) 100%);
+    color: white;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+.st-container-login {
+    width: 850px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40%;
+}
+
+.st-form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(76, 24, 0);
+    height: 100%;
+    width: 40%;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    gap: 5px;
+}
+
+.image-container {
+    height: 100%;
+    width: 40%;
+    display: flex;
+    align-items: center;
+    background-color:  white;
+    overflow: hidden;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    flex-wrap: nowrap;
+}
+
+img {
+    width: 100%;
+    height: auto;
+}
+.st-form-row-title {
+    text-align: center;
+    font-size: 1.2em;
+}
+
+.st-form-input {
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+    margin-bottom: 12px;
+}
+
+@media (max-width:1200px) {
+    .st-form-row {
+        width: 80%;
+        font-size: 12px;
+    }
+}
+
+.input-faild {
+    border:2px solid red;
+}
+
+
+@media(max-width:768px) {
+    .image-container {
+        display: none;
+    }
+
+    .st-form-container {
+        width: 95%;
+        height: 70%;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        padding-top: 60px;
+    }
+    .st-container-login {
+        height: 100vh;
+        width: 100%;
+
+    }
+    .form-title {
+        font-size: 40px;
+    }
+    .row {
+        width: 90%;
+    }
+}

@@ -4,7 +4,7 @@
     <mat-label>Seleccione cocinero</mat-label>
     <mat-select [(ngModel)]="data.nombreEmpleado" >
         <mat-option *ngFor="let item of listaCocineros" [value]="item">
-            {{item}}
+            {{item.nombreEmpleado}}
         </mat-option>
     </mat-select>
   </mat-form-field>

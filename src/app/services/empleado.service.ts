@@ -1,19 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Pedido } from '../models/Pedido';
+import { Empleado } from '../models/Empleado';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PedidoService {
-
+export class EmpleadoService {
   private myAppUrl = 'http://localhost:3000/';
-  private myAppApi = 'pedidos/';
+  private myAppApi = 'empleado/chef';
 
   constructor(private http: HttpClient) { }
 
-  getTodosLosPedidos(): Observable<Pedido[]> {
-    return this.http.get<Pedido[]>(`${this.myAppUrl}${this.myAppApi}`);
+  getChefDisponibles(): Observable<Empleado[]> {
+    return this.http.get<Empleado[]>(`${this.myAppUrl}${this.myAppApi}`);
   }
 }

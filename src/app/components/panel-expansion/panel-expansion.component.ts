@@ -3,6 +3,7 @@ import {MatDialog} from '@angular/material/dialog';
 import { DialogOverviewExampleDialog } from '../dialog-overview-example-dialog/dialog-overview-example-dialog.component';
 import { Pedido } from 'src/app/models/Pedido';
 import { Empleado } from 'src/app/models/Empleado';
+import { EmpleadoService } from 'src/app/services/empleado.service';
 
 @Component({
   selector: 'app-panel-expansion',
@@ -12,25 +13,34 @@ import { Empleado } from 'src/app/models/Empleado';
 export class PanelExpansionComponent implements Empleado {
 
   panelOpenState = false;
+  intervalo : any;
   @Input() pedido : Pedido | undefined;
   @Input() accion : string | undefined;
   @Output() mensajeEnviado = new EventEmitter<string>();
 
   chefSeleccionado : Empleado | undefined;
 
-  constructor(public dialog: MatDialog) {
-    this.actualizarTiempo();
+  constructor(
+    public _empleadoService:EmpleadoService,
+    public dialog: MatDialog) {
   }
+
+  // implementacion de la interfaz
   id: number = 0;
   cargo: string = '';
   nombreEmpleado: string = '';
-  estado: string = '';
+  estado: boolean = true;
 
   ngOnInit():void {
+    this.actualizarTiempo();
+    if (this.pedido?.estado === 'COMPLETADO') {
+        clearInterval(this.intervalo);
+       clearInterval(this.intervalo);
+    }
   }
 
   actualizarTiempo():void {
-    setInterval(() => {
+    this.intervalo = setInterval(() => {
       if (this.pedido !== undefined) {
         this.pedido!.tiempo += 1;
       }
@@ -44,11 +54,17 @@ export class PanelExpansionComponent implements Empleado {
         data: {id:this.id, cargo:this.cargo, nombreEmpleado:this.nombreEmpleado, estado:this.estado}
       });
           dialogRef.afterClosed().subscribe(result => {
-          this.chefSeleccionado = result;
+          // EmpleadoService.empleadoSeleccionado = result.nombreEmpleado;
+          this.pedido!.nombreChef = result.nombreEmpleado;
           this.mensajeEnviado.emit(this.pedido?.id);
       });
-    }else {
+    }
+    else {
       this.mensajeEnviado.emit(this.pedido?.id);
     }
+  }
+
+  ngOnDestroy(): void {
+    clearInterval(this.intervalo);
   }
 }

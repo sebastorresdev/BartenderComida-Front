@@ -5,6 +5,8 @@ import { DialogOverviewExampleDialog } from '../dialog-overview-example-dialog/d
 import { PedidoService } from 'src/app/services/pedido.service';
 import { Pedido } from 'src/app/models/Pedido';
 import { Empleado } from 'src/app/models/Empleado';
+import { EmpleadoService } from 'src/app/services/empleado.service';
+import {MatSelectChange} from '@angular/material/select';
 
 @Component({
   selector: 'app-pedido',
@@ -13,8 +15,10 @@ import { Empleado } from 'src/app/models/Empleado';
 })
 export class PedidoComponent implements Empleado{
   
-  pedidosPendientes: Pedido[] = [];
+  pedidosPendientesTmp : Pedido[] = [];
+  subCategorias : string[] =[];
 
+  pedidosPendientes: Pedido[] = [];
   done: Pedido[] = [];
   pedidoActual :Pedido |undefined;
   finalizado: Pedido[] = [];
@@ -23,22 +27,42 @@ export class PedidoComponent implements Empleado{
   numeroPedido : number = -1;
   contenedorPrevio = '';
 
-  // datos temporales
-  animal: string = '';
-  name: string = '';
 
-  constructor(public dialog: MatDialog, private _pedidoService: PedidoService) {
+  constructor(public dialog: MatDialog, private _pedidoService: PedidoService, private _empleadoService:EmpleadoService) {
   }
   id: number = 0;
   cargo: string = '';
   nombreEmpleado: string = '';
-  estado: string = '';
+  estado: boolean = true;
 
   ngOnInit() {
+    this.obtenerTodosLosPedidos();
+  }
+
+  obtenerTodosLosPedidos() {
     this._pedidoService.getTodosLosPedidos().subscribe((data) => {
       this.pedidosPendientes = data;
-      console.log(data);
+      this.pedidosPendientesTmp = data;
+      const subCategoriasUnicas = new Set(this.pedidosPendientes.map(p => p.subcategoria));
+      console.log(subCategoriasUnicas);
+      this.subCategorias = [...subCategoriasUnicas];
+      console.log(this.subCategorias);
     })
+  }
+
+  obtenerTodosLosPedidoEnProceso() {
+    this._pedidoService.getTodosLosPedidos().subscribe((data) => {
+      this.pedidosPendientes = data;
+      
+    })
+  }
+
+  filtrarPorSubCategorias(event: MatSelectChange) {
+    console.log(event);
+    this.pedidosPendientes = this.pedidosPendientesTmp;
+    if (event.value !== undefined) {
+      this.pedidosPendientes = this.pedidosPendientes.filter(p => p.subcategoria == event.value);
+    }
   }
 
   drop(event: CdkDragDrop<any[]>) {
@@ -47,12 +71,7 @@ export class PedidoComponent implements Empleado{
     } else {
       this.contenedorPrevio = event.previousContainer.id;
       this.numeroPedido = event.previousContainer.data[event.previousIndex].id;
-      console.log(`Esta saliendo este pedido:${this.numeroPedido}`);
       if (this.contenedorPrevio === 'cdk-drop-list-1') {
-        // transferArrayItem(event.previousContainer.data,
-        //   event.container.data,
-        //   event.previousIndex,
-        //   event.currentIndex);
         this.pedidoTerminado(this.numeroPedido);
       }
       else {
@@ -61,17 +80,18 @@ export class PedidoComponent implements Empleado{
     }
   }
 
-  cambiarAPreparacion(numeroPedido: any) {
+  cambiarAPreparacion(numeroPedido:any) {
     const index = this.pedidosPendientes.findIndex(p => p.id == numeroPedido)
     if (index != -1) {
       this.pedidosPendientes[index].estado = 'PROCESO';
+      if (this.pedidosPendientes[index].nombreChef === null)
+        this.pedidosPendientes[index].nombreChef = this.nombreEmpleado;
       this.done.push(this.pedidosPendientes[index]);
       this.pedidosPendientes.splice(index, 1);
     }
   }
 
   pedidoTerminado(numeroPedido: any) {
-    console.log('si llamo a pedido terminado');
     const index = this.done.findIndex(p => p.id == numeroPedido)
     if (index != -1) {
       this.done[index].estado = 'COMPLETADO';
@@ -86,18 +106,32 @@ export class PedidoComponent implements Empleado{
       data: {id:this.id, cargo:this.cargo, nombreEmpleado:this.nombreEmpleado, estado:this.estado}
     });
       dialogRef.afterClosed().subscribe(result => {
-      this.nombreEmpleado = result;
-      
+      this.nombreEmpleado = result.nombreEmpleado;
       if (this.contenedorPrevio === 'cdk-drop-list-0' && this.nombreEmpleado !== undefined ) {
         this.cambiarAPreparacion(this.numeroPedido);
-        console.log(this.numeroPedido);
-        this.nombreEmpleado = '';
       }
-      if (this.contenedorPrevio === 'cdk-drop-list-1' && this.nombreEmpleado !== undefined) {
-        this.pedidoTerminado(this.numeroPedido);
-        console.log(this.numeroPedido);
+    });
+  }
+
+  ordenarListadoPendiente() {
+    this.ordenarPorNombreProducto(this.pedidosPendientes);
+  }
+
+  ordenarPedidoEnProceso() {
+    this.ordenarPorNombreProducto(this.done);
+  }
+  ordenarPedidoCompletados() {
+    this.ordenarPorNombreProducto(this.finalizado);
+  }
+  ordenarPorNombreProducto(data:Pedido[]) {
+    data.sort((a, b) => {
+      if (a.nombreProducto < b.nombreProducto) {
+        return -1; // a debe ir antes que b
       }
-        
+      if (a.nombreProducto > b.nombreProducto) {
+        return 1; // b debe ir antes que a
+      }
+      return 0; // a y b son iguales
     });
   }
 }

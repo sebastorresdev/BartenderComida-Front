@@ -8,16 +8,17 @@ import { MatNativeDateModule } from '@angular/material/core';
 import {MatInputModule} from '@angular/material/input';
 import {  FormsModule } from '@angular/forms';
 import {MatSelectModule} from '@angular/material/select';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PedidoComponent } from './components/pedido/pedido.component';
 import { PanelExpansionComponent } from './components/panel-expansion/panel-expansion.component';
-import { DialogOverviewExample } from './components/dialog-overview-example/dialog-overview-example.component';
 import { DialogOverviewExampleDialog } from './components/dialog-overview-example-dialog/dialog-overview-example-dialog.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { HttpClientModule } from '@angular/common/http';
+import { LoginComponent } from './components/login/login.component';
 
 
 @NgModule({
@@ -25,8 +26,8 @@ import { HttpClientModule } from '@angular/common/http';
     AppComponent,
     PedidoComponent,
     PanelExpansionComponent,
-    DialogOverviewExample,
     DialogOverviewExampleDialog,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,7 +41,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatFormFieldModule,
     FormsModule,
     MatSelectModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

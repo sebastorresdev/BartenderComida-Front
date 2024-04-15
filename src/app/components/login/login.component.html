@@ -1,0 +1,27 @@
+<section class="st-container">
+    <div class="st-container-login">
+        <div class="image-container">
+            <img src="../../../assets/img/logo.jpeg" alt="Restaurant">
+        </div>
+        <div class="container"
+            style="background-color: rgb(76, 24, 0);height: 100%; width: 60%; border-top-right-radius: 10px; border-bottom-right-radius: 10px;">
+            <div class="st-form-row st-form-row-title mt-3">
+                <h2 class="form-title">Iniciar sesión</h2>
+            </div>
+            <form class="row g-3 needs-validation" novalidate [ngClass]="{'was-validated':form.invalid && inputValid}"
+                [formGroup]="form" (ngSubmit)="validarLogin()">
+                <div class="col-md-12">
+                    <label for="user" class="form-label">Usuario:</label>
+                    <input formControlName="usuario" type="text" required class="form-control">
+                    <div class="col-md-12">
+                        <label for="pass" class="form-label">Contraseña</label>
+                        <input formControlName="password" type="password" required class="form-control">
+                    </div>
+                </div>
+                <div class="st-form-row ">
+                    <button class="btn w-100 btn-warning mt-2" type="submit">INGRESAR</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
