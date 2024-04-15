@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatDialogModule} from '@angular/material/dialog';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatInputModule} from '@angular/material/input';
-import { FormsModule } from '@angular/forms';
+import {  FormsModule } from '@angular/forms';
 import {MatSelectModule} from '@angular/material/select';
 
 
@@ -17,7 +17,7 @@ import { PanelExpansionComponent } from './components/panel-expansion/panel-expa
 import { DialogOverviewExample } from './components/dialog-overview-example/dialog-overview-example.component';
 import { DialogOverviewExampleDialog } from './components/dialog-overview-example-dialog/dialog-overview-example-dialog.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
-
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -39,7 +39,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     MatDialogModule,
     MatFormFieldModule,
     FormsModule,
-    MatSelectModule
+    MatSelectModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
